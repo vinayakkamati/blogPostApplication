@@ -45,7 +45,6 @@ public class PostController {
     public void modelAttribute(Model model) {
         model.addAttribute("sessionUser", userService.findUserByEmail(SecurityContextHolder.getContext()
                 .getAuthentication().getName()));
-
         model.addAttribute("admin", hasRole("ADMIN"));
     }
 
