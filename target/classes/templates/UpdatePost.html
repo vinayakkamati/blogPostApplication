@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Post</title>
+</head>
+<body>
+<div class="container">
+    <h1>Add new post</h1>
+    <hr>
+    <h2>Update post</h2>
+    <a th:href="@{/}">Back to BlogPosts</a>
+    <form th:action="@{/updatePost}" th:object="${post}" method="POST">
+        <label>
+            <textarea rows="1" cols="100" th:field="${post.title}" name="Title" placeholder="Title" required></textarea>
+        </label><br>
+
+        <label>
+            <textarea rows="20" cols="100" th:field="${post.content}" name="Content" placeholder="Content"
+                      required></textarea>
+        </label><br>
+        <label>
+            <textarea rows="1" cols="50" th:field="${post.tags}" name="tags" placeholder="tag"></textarea>
+        </label>
+
+        <br>
+        <input th:type="hidden" th:field="${post.id}" name="id">
+        <input type="hidden" th:value="${sessionUser.name}" name="author"/>
+        <input type="hidden" th:value="${!post.isPublished}" name="Published"/>
+        <input type="submit" value="Update post">
+    </form>
+</div>
+</body>
+</html>

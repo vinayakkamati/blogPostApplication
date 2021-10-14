@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post</title>
+</head>
+<body>
+<div class="container">
+    <h1>Add new post</h1>
+    <hr>
+    <form th:action="@{/savepost}" method="POST">
+        <label>
+            <textarea rows="1" cols="100" name="title" placeholder="Title" required></textarea>
+        </label><br>
+
+        <label>
+            <textarea rows="20" cols="100" name="content" placeholder="Content" required></textarea>
+        </label>
+        <br>
+
+        <label>
+            <textarea rows="1" cols="50" name="tags" placeholder="tag"></textarea>
+        </label>
+
+        <input th:type="hidden" name="id">
+        <input type="hidden" th:value="${sessionUser.name}" name="author">
+        <br>
+        <br>
+        <input type="submit" value="Publish">
+    </form>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Blog Post</title>
+
+    <style type="text/css">
+        #table-div {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0 1em;
+        }
+
+        td {
+            border: 1px solid;
+            padding: 10px;
+        }
+
+        a {
+            color: black;
+            text-decoration: none;
+        }
+        a1 {
+            color: blue;
+            text-decoration: none;
+        }
+        .div7
+        {
+            height: 151px;
+            width: 199px;
+            display: inline-block;
+            margin-left: 0px;
+        }
+        .position
+        {
+            position: relative;
+            left: 828px;
+            margin-left: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <br>
+    <a th:href="@{/login}" >LogIn</a>
+    <br>
+    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" >LogOut</a></li>
+    <H1>Blog Post Application</H1>
+    <br>
+    <form th:action="@{/search}">
+        <input type="text" placeholder="Search" name="search"/>
+        <input type="submit" value="Search">
+    </form>
+
+    <!--    Filtering part-->
+    <form action="/filter" method="GET">
+        <div class="div7">
+            <h5>By Author: </h5>
+            <th:block th:each="user: ${users}">
+                <div th:object="${user}">
+                    <input type="checkbox" name="authorId" th:value="${user.id}"/>
+                    <label>[[${user.name}]]</label>
+                </div>
+            </th:block>
+        </div>
+        <div class="div7">
+            <h5>By Tags: </h5>
+            <th:block th:each="tag: ${tags}">
+                <div th:object="${tag}">
+                    <input type="checkbox" name="tagId" th:value="${tag.id}"/>
+                    <label>[[${tag.name}]]</label>
+                </div>
+            </th:block>
+        </div>
+        <input type="submit" value="Filter"/>
+    </form>
+
+    <div>
+        <a th:href="@{'/page/' + ${currentPage} + '?sortField=publishedAt&sortDir=' + ${reverseSortDir}}" class="a1">
+            Sort by published date
+        </a>
+    </div>
+</div>
+<a th:if="${admin} OR ${sessionUser}" th:href="@{/showNewPostForm}" class="position">Create new
+    post</a>
+<br>
+<div id="table-div">
+    <table th:each="post : ${posts}">
+        <tr>
+            <td>
+                <a th:href="@{/post{id}(id = ${post.id})}">
+                    <h2 th:text="${post.title}"></h2>
+                    <p id="tag" th:text="${post.author}"></p>
+                    <p th:text="${post.publishedAt}"></p>
+                    <p th:text="${post.excerpt}"></p>
+                    <th:block th:each="tag : ${post.tags}">
+                        <b><b>#</b>[[${tag.name}]]</b>
+                    </th:block>
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div th:if="${totalPage} > 1">
+    <div class="row col-sm-10">
+        <div class="col-sm-1">
+            <a th:if="${currentPage-1 >= 1}"
+               th:href="@{'/page/' + ${currentPage - 1} + '? sortField =' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
+            <span th:unless="${currentPage-1 >= 1}">Previous</span>
+        </div>
+
+        <div class="col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPage)}">
+						<a th:if="${currentPage != i}"
+                           th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+        </div>
+        <div class="col-sm-1">
+            <a th:if="${currentPage < totalPage}"
+               th:href="@{'/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+            <input type="hidden" name="start" value="1"/>
+            <span th:unless="${currentPage < totalPage}">Next</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

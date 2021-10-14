@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot Thymeleaf + Spring Security</title>
+</head>
+<body>
+
+<div>
+    <form th:object="${comment}" th:action="@{/comment}" method="POST">
+        <input type="text" th:value="${comment.comment}" name="comment">
+        <input type="hidden" name="commentId" th:value="${comment.id}">
+        <input type="hidden" name="postId" th:value="${comment.postId}">
+        <input type="text" placeholder="Enter your Name" name="name">
+        <input type="text" placeholder="Enter your EmailId" name="email">
+        <input type="submit" value="UpDate Comment">
+    </form>
+</div>
+</body>
+</html>

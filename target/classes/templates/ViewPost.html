@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post </title>
+    <style>
+        body {
+            margin: 50px 200px 30px;
+        }
+
+        div {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<br>
+<a th:href="@{/}" class="btn btn-primary">Home</a>
+<br>
+<div th:object="${post}">
+    <h2 th:text="${post.title}"></h2>
+    <p th:text="${post.author}"></p>
+    <p th:text="${post.publishedAt}"></p>
+    <th:block th:each="tag : ${post.tags}">
+        <b><b>#</b>[[${tag.name}]]</b>
+    </th:block>
+
+    <p th:text="${post.content}"></p>
+
+    <br>
+    <a  th:href="@{/showNewCommentForm/{id}(id=${post.id})}">Comment</a>
+    <br>
+    <br>
+    <a th:if="${sessionUser != null} and ${sessionUser.name} == ${post.author} OR ${admin}"
+       th:href="@{/showFormForUpdate/{id}(id=${post.id})}">Update</a>
+    <a th:if="${sessionUser != null} and ${sessionUser.name} == ${post.author} OR ${admin}"
+       th:href="@{/deletePost/{id}(id=${post.id})}">Delete</a>
+
+    <br>
+    <br>
+    <div class="commentContainer">
+        <th:block th:each="comments : ${comment}">
+
+            <div class="grid-container">
+                [[${comments.comment}]], [[${comments.name}]]<br> [[${comments.createdAt}]]
+                <a th:if="${sessionUser != null} and ${sessionUser.name} == ${comments.name}  OR ${admin}"
+                   th:href="@{/showCommentUpdate/{id}(id=${comments.id})}">Update</a>
+                <a th:if="${sessionUser != null} and ${sessionUser.name} == ${comments.name}  OR ${admin}"
+                   th:href="@{/deleteComment/{id}(id=${comments.id})}">Delete</a>
+                <br>
+            </div>
+            <br>
+            <br>
+        </th:block>
+    </div>
+</div>
+
+</body>
+</html>
