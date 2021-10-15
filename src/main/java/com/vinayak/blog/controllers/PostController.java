@@ -50,7 +50,7 @@ public class PostController {
 
     @RequestMapping("/search")
     public String searchResult(@RequestParam("search") String keyword, Model model) {
-//        return showHomePage(keyword, model);
+        showHomePage(keyword, model);
         return "keyword search";
     }
 
