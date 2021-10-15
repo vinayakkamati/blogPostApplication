@@ -50,16 +50,18 @@ public class PostController {
 
     @RequestMapping("/search")
     public String searchResult(@RequestParam("search") String keyword, Model model) {
-        return showHomePage(keyword, model);
+//        return showHomePage(keyword, model);
+        return "keyword search";
     }
 
+
     @RequestMapping("/")
-    public String showHomePage(String keyword, Model model) {
+    public List<Post> showHomePage(String keyword, Model model) {
         return showPagination(1, "publishedAt", "desc", keyword, model);
     }
 
     @GetMapping("/page/{pageNo}")
-    public String showPagination(@PathVariable("pageNo") int pageNo,
+    public List<Post>  showPagination(@PathVariable("pageNo") int pageNo,
                                  @RequestParam(value = "sortField", defaultValue = "publishedAt") String sortField,
                                  @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir,
                                  String keyword,
@@ -71,19 +73,20 @@ public class PostController {
 
         List<User> users = userService.getAllUser();
 
-        model.addAttribute("tags", tags);
-        model.addAttribute("users", users);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("totalPage", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-        if (model.getAttribute("posts") == null) {
-            model.addAttribute("posts", posts);
-        }
-        return "home";
+//        model.addAttribute("tags", tags);
+//        model.addAttribute("users", users);
+//        model.addAttribute("keyword", keyword);
+//        model.addAttribute("totalPage", page.getTotalPages());
+//        model.addAttribute("totalItems", page.getTotalElements());
+//        model.addAttribute("currentPage", pageNo);
+//        model.addAttribute("sortField", sortField);
+//        model.addAttribute("sortDir", sortDir);
+//        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+//        if (model.getAttribute("posts") == null) {
+//            model.addAttribute("posts", posts);
+//        }
+//        return "home";
+        return posts;
     }
 
     @GetMapping("/showNewPostForm")
@@ -130,12 +133,13 @@ public class PostController {
     }
 
     @GetMapping("post{postId}")
-    public String viewPost(@PathVariable("postId") int postId, Model model) {
+    public Post viewPost(@PathVariable("postId") int postId, Model model) {
         Post post = postService.getPostById(postId);
         List<Comment> comment = commentRepository.getCommentByPostId(postId);
         model.addAttribute("post", post);
         model.addAttribute("comment", comment);
-        return "ViewPost";
+//        return "ViewPost";
+        return post;
     }
 
     @GetMapping("/showFormForUpdate/{id}")
@@ -175,17 +179,20 @@ public class PostController {
         post.setTags(tagList);
 
         postService.savePost(post);
-        return viewPost(postId, model);
+//        return viewPost(postId, model);
+        return "post updated";
     }
 
     @GetMapping("/deletePost/{id}")
     public String deletePost(@PathVariable(value = "id") int id) {
         this.postService.deletePostById(id);
-        return "redirect:/";
+//        return "redirect:/";
+        return "post deleted";
     }
 
+
     @GetMapping("/filter")
-    public String getFilteredPosts(@RequestParam(value = "authorId", required = false) Optional<Integer> authorId,
+    public List<Post> getFilteredPosts(@RequestParam(value = "authorId", required = false) Optional<Integer> authorId,
                                    @RequestParam(value = "tagId", required = false) Optional<Integer> tagId,
                                    String keyword, Model model) {
 
@@ -213,8 +220,10 @@ public class PostController {
             List<Post> posts = postService.getAllPostsById(postsByTagId);
             model.addAttribute("posts", posts);
         }
-        return showHomePage(keyword, model);
+//        return showHomePage(keyword, model);
+        return (List<Post>) model.getAttribute("posts");
     }
+
 
     public static boolean hasRole(String roleName) {
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()

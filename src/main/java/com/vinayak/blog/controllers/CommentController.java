@@ -33,7 +33,6 @@ public class CommentController {
     public void modelAttribute(Model model) {
         model.addAttribute("sessionUser", userService.findUserByEmail(SecurityContextHolder.getContext()
                 .getAuthentication().getName()));
-
         model.addAttribute("admin", hasRole("ADMIN"));
     }
 
@@ -62,21 +61,23 @@ public class CommentController {
         comment.setPostId(id);
         comment.setEmail(email);
         commentService.saveComment(comment);
-        return posts.viewPost(id, model);
+//        return posts.viewPost(id, model);
+        return "comment saved";
     }
 
     @GetMapping("/deleteComment/{id}")
     public String deleteComment(@PathVariable(value = "id") Integer id) {
         this.commentService.deleteCommentByPostId(id);
-        return "redirect:/";
+//        return "redirect:/";
+        return "comment deleted";
     }
 
     @GetMapping("/showCommentUpdate/{id}")
-    public Model showFormForUpdate(@PathVariable(value = "id") int id, Model model) {
+    public String showFormForUpdate(@PathVariable(value = "id") int id, Model model) {
         Comment comment = commentService.getCommentById(id);
         model.addAttribute("comment", comment);
 //        return "UpdateComment";
-        return model;
+        return "update comment";
     }
 
     public static boolean hasRole(String roleName) {
