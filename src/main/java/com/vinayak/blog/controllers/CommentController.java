@@ -17,15 +17,15 @@ public class CommentController {
 
     private final PostService postService;
 
-    private final PostController posts;
+    private final PostController postController;
 
     private final UserService userService;
 
     public CommentController(CommentService commentService, PostService postService,
-                             PostController posts, UserService userService) {
+                             PostController postControler, UserService userService) {
         this.commentService = commentService;
         this.postService = postService;
-        this.posts = posts;
+        this.postController = postControler;
         this.userService = userService;
     }
 
@@ -62,7 +62,7 @@ public class CommentController {
         comment.setPostId(id);
         comment.setEmail(email);
         commentService.saveComment(comment);
-        return posts.viewPost(id, model);
+        return postController.viewPost(id, model);
     }
 
     @GetMapping("/deleteComment/{id}")
