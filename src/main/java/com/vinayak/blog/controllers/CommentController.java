@@ -44,7 +44,7 @@ public class CommentController {
     }
 
     @PostMapping("/comment")
-    public String saveComment(@RequestParam("comment") String data,
+    public Comment saveComment(@RequestParam("comment") String data,
                               @RequestParam("postId") String postId,
                               @RequestParam("name") String name,
                               @RequestParam("email") String email,
@@ -62,7 +62,7 @@ public class CommentController {
         comment.setEmail(email);
         commentService.saveComment(comment);
 //        return posts.viewPost(id, model);
-        return "comment saved";
+        return comment;
     }
 
     @GetMapping("/deleteComment/{id}")
