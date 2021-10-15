@@ -32,14 +32,15 @@ public class LogInRegistrationController {
     public String createNewUser(Model model) {
 
         model.addAttribute("user", new UserDto());
-//        return "registration";
-        return "user data saved";
+        return "registration";
+
     }
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("user") UserDto userDto) {
 
         userService.saveUserDetails(userDto);
-        return "registration";
+//        return "registration";
+        return "user data saved";
     }
 }
