@@ -149,7 +149,7 @@ public class PostController {
         return "UpdatePost";
     }
 
-    @PostMapping("/updatePost")
+    @PutMapping("/updatePost")
     public String updatePost(@RequestParam(value = "title") String title,
                              @RequestParam(value = "content") String content,
                              @RequestParam(value = "id") int postId,
@@ -183,7 +183,7 @@ public class PostController {
         return "post updated";
     }
 
-    @GetMapping("/deletePost/{id}")
+    @DeleteMapping("/deletePost/{id}")
     public String deletePost(@PathVariable(value = "id") int id) {
         this.postService.deletePostById(id);
 //        return "redirect:/";
