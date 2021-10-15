@@ -91,7 +91,7 @@ public class PostController {
         return "newpost";
     }
 
-    @GetMapping("/savepost")
+    @PostMapping("/savepost")
     public Post savePost(@RequestParam("title") String title,
                            @RequestParam("content") String content,
                            @RequestParam("tags") String tags,
