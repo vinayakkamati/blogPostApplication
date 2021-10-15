@@ -2,26 +2,21 @@
 <html xmlns:th="http://thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-
     <meta charset="UTF-8">
     <title>Blog Post</title>
-
     <style type="text/css">
         #table-div {
             display: grid;
             grid-template-columns: 1fr 1fr;
         }
-
         table {
             border-collapse: separate;
             border-spacing: 0 1em;
         }
-
         td {
             border: 1px solid;
             padding: 10px;
         }
-
         a {
             color: black;
             text-decoration: none;
@@ -33,7 +28,7 @@
         .div7
         {
             height: 151px;
-            width: 199px;
+            width: 428px;
             display: inline-block;
             margin-left: 0px;
         }
@@ -79,9 +74,10 @@
                 </div>
             </th:block>
         </div>
+        <br>
         <input type="submit" value="Filter"/>
     </form>
-
+    <br>
     <div>
         <a th:href="@{'/page/' + ${currentPage} + '?sortField=publishedAt&sortDir=' + ${reverseSortDir}}" class="a1">
             Sort by published date
@@ -110,24 +106,25 @@
 </div>
 
 <div th:if="${totalPage} > 1">
-    <div class="row col-sm-10">
-        <div class="col-sm-1">
+    <div>
+        <div class="div7">
             <a th:if="${currentPage-1 >= 1}"
                th:href="@{'/page/' + ${currentPage - 1} + '? sortField =' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
-            <span th:unless="${currentPage-1 >= 1}">Previous</span>
+            <span th:unless="${currentPage-1 >= 1}" >Previous</span>
         </div>
 
-        <div class="col-sm-1">
+        <div class="div7">
 					<span th:each="i: ${#numbers.sequence(1, totalPage)}">
 						<a th:if="${currentPage != i}"
                            th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
 						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
 					</span>
         </div>
-        <div class="col-sm-1">
+        <div class="div7">
             <a th:if="${currentPage < totalPage}"
                th:href="@{'/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
             <input type="hidden" name="start" value="1"/>
+
             <span th:unless="${currentPage < totalPage}">Next</span>
         </div>
     </div>
