@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class LogInRegistrationController {
 
     private final UserService userService;
@@ -33,14 +33,12 @@ public class LogInRegistrationController {
 
         model.addAttribute("user", new UserDto());
         return "registration";
-
     }
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("user") UserDto userDto) {
 
         userService.saveUserDetails(userDto);
-//        return "registration";
-        return "user data saved";
+        return "registration";
     }
 }

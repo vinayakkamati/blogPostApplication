@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class CommentController {
 
     private final CommentService commentService;
@@ -33,6 +33,7 @@ public class CommentController {
     public void modelAttribute(Model model) {
         model.addAttribute("sessionUser", userService.findUserByEmail(SecurityContextHolder.getContext()
                 .getAuthentication().getName()));
+
         model.addAttribute("admin", hasRole("ADMIN"));
     }
 
@@ -44,7 +45,7 @@ public class CommentController {
     }
 
     @PostMapping("/comment")
-    public Comment saveComment(@RequestParam("comment") String data,
+    public String saveComment(@RequestParam("comment") String data,
                               @RequestParam("postId") String postId,
                               @RequestParam("name") String name,
                               @RequestParam("email") String email,
@@ -61,23 +62,20 @@ public class CommentController {
         comment.setPostId(id);
         comment.setEmail(email);
         commentService.saveComment(comment);
-//        return posts.viewPost(id, model);
-        return comment;
+        return posts.viewPost(id, model);
     }
 
-    @DeleteMapping("/deleteComment/{id}")
+    @GetMapping("/deleteComment/{id}")
     public String deleteComment(@PathVariable(value = "id") Integer id) {
         this.commentService.deleteCommentByPostId(id);
-//        return "redirect:/";
-        return "comment deleted";
+        return "redirect:/";
     }
 
-    @PutMapping("/showCommentUpdate/{id}")
+    @GetMapping("/showCommentUpdate/{id}")
     public String showFormForUpdate(@PathVariable(value = "id") int id, Model model) {
         Comment comment = commentService.getCommentById(id);
         model.addAttribute("comment", comment);
-//        return "UpdateComment";
-        return "update comment";
+        return "UpdateComment";
     }
 
     public static boolean hasRole(String roleName) {

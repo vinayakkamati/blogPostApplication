@@ -4,7 +4,6 @@ import com.vinayak.blog.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests().antMatchers("/registration**","/post{postId}","post{postId}","/","/page/{pageNo}","/search","/filter","/showCommentUpdate/{id}",
-                        "/deletePost/{id}","/updatePost","/comment","/deleteComment/{id}","/savepost**","/showNewPostForm","/login").permitAll()
+                        "/deletePost/{id}","/updatePost","/comment","/deleteComment/{id}","/savepost","/showNewPostForm","/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
