@@ -29,13 +29,13 @@ public class CommentController {
         this.userService = userService;
     }
 
-//    @ModelAttribute
-//    public void modelAttribute(Model model) {
-////        model.addAttribute("sessionUser", userService.findUserByEmail(SecurityContextHolder.getContext()
-////                .getAuthentication().getName()));
-//
-//        model.addAttribute("admin", hasRole("ADMIN"));
-//    }
+    @ModelAttribute
+    public void modelAttribute(Model model) {
+        model.addAttribute("sessionUser", userService.findUserByEmail(SecurityContextHolder.getContext()
+                .getAuthentication().getName()));
+
+        model.addAttribute("admin", hasRole("ADMIN"));
+    }
 
     @GetMapping("/showNewCommentForm/{id}")
     public String showNewCommentForm(@PathVariable(value = "id") Integer id, Model model) {
@@ -72,14 +72,15 @@ public class CommentController {
     }
 
     @GetMapping("/showCommentUpdate/{id}")
-    public String showFormForUpdate(@PathVariable(value = "id") int id, Model model) {
+    public Model showFormForUpdate(@PathVariable(value = "id") int id, Model model) {
         Comment comment = commentService.getCommentById(id);
         model.addAttribute("comment", comment);
-        return "UpdateComment";
+//        return "UpdateComment";
+        return model;
     }
 
-//    public static boolean hasRole(String roleName) {
-//        return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
-//                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(roleName));
-//    }
+    public static boolean hasRole(String roleName) {
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(roleName));
+    }
 }
