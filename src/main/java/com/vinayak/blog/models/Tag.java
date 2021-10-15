@@ -1,6 +1,5 @@
 package com.vinayak.blog.models;
 
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
@@ -25,7 +24,6 @@ public class Tag {
     private List<Post> posts;
 
     public Tag() {
-
     }
 
     public Tag(List<Post> posts) {

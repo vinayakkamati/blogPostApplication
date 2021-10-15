@@ -1,7 +1,6 @@
 package com.vinayak.blog.models;
 
 import javax.persistence.*;
-
 import static javax.persistence.GenerationType.AUTO;
 
 @Entity
@@ -11,6 +10,7 @@ public class Role {
     @GeneratedValue(strategy = AUTO)
     @Column(name = "id", nullable = false)
     private int id;
+
     private String name;
 
     public int getId() {

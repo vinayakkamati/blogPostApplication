@@ -21,23 +21,22 @@ public class LogInRegistrationController {
     }
 
     @ModelAttribute("user")
-    public UserDto userDto(){
+    public UserDto userDto() {
         return new UserDto();
     }
 
     public LogInRegistrationController(UserService userService) {
         this.userService = userService;
     }
+
     @GetMapping("/registration")
     public String createNewUser(Model model) {
-
         model.addAttribute("user", new UserDto());
         return "registration";
     }
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("user") UserDto userDto) {
-
         userService.saveUserDetails(userDto);
         return "registration";
     }

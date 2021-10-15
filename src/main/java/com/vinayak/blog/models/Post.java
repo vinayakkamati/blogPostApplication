@@ -1,7 +1,6 @@
 package com.vinayak.blog.models;
 
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import java.util.*;
 
@@ -55,10 +54,10 @@ public class Post {
         this.authorId = authorId;
     }
 
-    @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     @JoinTable(name = "post_tags",
-                joinColumns = @JoinColumn(name = "post_id",referencedColumnName = "post_id"),
-                    inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "post_id", referencedColumnName = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
     private List<Tag> tags;
 
     public Post() {
@@ -79,7 +78,6 @@ public class Post {
     public List<Tag> getTags() {
         return tags;
     }
-
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;

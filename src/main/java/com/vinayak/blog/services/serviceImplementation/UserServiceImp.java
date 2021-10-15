@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +26,7 @@ public class UserServiceImp implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    private static final String USER_ROLE = "USER";
+    private static final String USER_ROLE = "ADMIN";
 
     @Override
     public User findUserByEmail(String email) {
@@ -36,8 +35,8 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void saveUserDetails(UserDto registrationDto) {
-        User user = new User(registrationDto.getName(),registrationDto.getEmail(),
-                passwordEncoder.encode(registrationDto.getPassword()) , List.of(new Role(USER_ROLE)));
+        User user = new User(registrationDto.getName(), registrationDto.getEmail(),
+                passwordEncoder.encode(registrationDto.getPassword()), List.of(new Role(USER_ROLE)));
         userRepository.save(user);
     }
 

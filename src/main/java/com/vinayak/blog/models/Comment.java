@@ -12,10 +12,13 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "comment")
     private String comment;
 
@@ -34,6 +37,7 @@ public class Comment {
     @Temporal(TemporalType.DATE)
     @Column(name = "created_at")
     private Date createdAt;
+
     @UpdateTimestamp
     @Temporal(TemporalType.DATE)
     @Column(name = "updated_at")

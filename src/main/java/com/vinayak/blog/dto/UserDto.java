@@ -1,6 +1,5 @@
 package com.vinayak.blog.dto;
 
-
 public class UserDto {
     private String name;
     private String email;
@@ -14,7 +13,6 @@ public class UserDto {
     }
 
     public UserDto() {
-
     }
 
     public String getName() {

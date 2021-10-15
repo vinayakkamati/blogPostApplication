@@ -5,9 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
 import java.util.List;
-
 
 public interface PostRepositories extends JpaRepository<Post, Integer> {
 
@@ -19,4 +17,3 @@ public interface PostRepositories extends JpaRepository<Post, Integer> {
     @Query("SELECT p.id FROM Post p WHERE p.authorId IN ?1")
     List<Integer> getPostIdsByAuthorIds(int authorId);
 }
-
