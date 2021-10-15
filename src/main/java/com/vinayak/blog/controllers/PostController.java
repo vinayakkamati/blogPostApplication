@@ -26,20 +26,23 @@ import java.util.Optional;
 @Controller
 public class PostController {
 
-    @Autowired
-    private PostService postService;
+    private final PostService postService;
 
-    @Autowired
-    private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private TagService tagService;
+    private final TagService tagService;
 
-    @Autowired
-    private UserServiceImp userServiceImp;
+    private final UserServiceImp userServiceImp;
+
+    public PostController(PostService postService, CommentRepository commentRepository, UserService userService, TagService tagService, UserServiceImp userServiceImp) {
+        this.postService = postService;
+        this.commentRepository = commentRepository;
+        this.userService = userService;
+        this.tagService = tagService;
+        this.userServiceImp = userServiceImp;
+    }
 
     @ModelAttribute
     public void modelAttribute(Model model) {
@@ -149,7 +152,7 @@ public class PostController {
         return "UpdatePost";
     }
 
-    @PostMapping("/updatePost")
+    @PutMapping("/updatePost")
     public String updatePost(@RequestParam(value = "title") String title,
                              @RequestParam(value = "content") String content,
                              @RequestParam(value = "id") int postId,
@@ -166,7 +169,7 @@ public class PostController {
         return viewPost(postId, model);
     }
 
-    @GetMapping("/deletePost/{id}")
+    @DeleteMapping("/deletePost/{id}")
     public String deletePost(@PathVariable(value = "id") int id) {
         this.postService.deletePostById(id);
         return "redirect:/";

@@ -65,7 +65,7 @@ public class CommentController {
         return postController.viewPost(id, model);
     }
 
-    @GetMapping("/deleteComment/{id}")
+    @DeleteMapping("/deleteComment/{id}")
     public String deleteComment(@PathVariable(value = "id") Integer id) {
         this.commentService.deleteCommentByPostId(id);
         return "redirect:/";
