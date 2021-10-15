@@ -1,50 +1,38 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <style>
+        .h2 {
+            position: absolute;
+            left: 760px;
+            top: 100px;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-<!--    <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>-->
+<div>
+    <a th:href="@{/}">Home</a>
+    <br>
+    <div class="h2">
+        <h1>Register Here</h1>
+        <form th:action="@{/registration}" method="post" th:object="${user}">
 
-    <div class="row" style="margin-top:20px">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form th:action="@{/registration}" method="post" th:object="${user}">
+            <input type="text" th:field="*{name}" placeholder="Name"/>
+            <br>
+            <br>
+            <input type="text" th:field="*{email}" placeholder="Email"/>
+            <br>
+            <br>
+            <input type="password" th:field="*{password}" placeholder="Password"/>
+            <br>
+            <br>
+            <input type="submit" value="Submit"/>
+            <br>
+            <br>
+            Already User? <a th:href="@{/login}">LogIn</a>
 
-
-                <div class="form-group">
-
-                    <input type="text"  th:field="*{name}" placeholder="Name"
-                           class="form-control input-lg"/>
-
-                </div>
-
-                <div class="form-group">
-
-                    <input type="text"   th:field="*{email}" placeholder="Email"
-                           class="form-control input-lg"/>
-
-                </div>
-
-                <div class="form-group">
-
-                    <input type="password"  th:field="*{password}" placeholder="Password"
-                           class="form-control input-lg"/>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-3" style="float: none; margin: 0 auto;">
-                        <input type="submit" class="btn btn-primary btn-block" value="Submit"/>
-                    </div>
-                </div>
-                <br>
-                       Already User? <a th:href="@{/login}" class="btn btn-primary">LogIn</a>
-                <br>
-
-            </form>
-        </div>
+        </form>
     </div>
-
 </div>
 </body>
 </html>
