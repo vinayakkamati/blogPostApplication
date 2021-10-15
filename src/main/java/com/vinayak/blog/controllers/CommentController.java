@@ -65,14 +65,14 @@ public class CommentController {
         return comment;
     }
 
-    @GetMapping("/deleteComment/{id}")
+    @DeleteMapping("/deleteComment/{id}")
     public String deleteComment(@PathVariable(value = "id") Integer id) {
         this.commentService.deleteCommentByPostId(id);
 //        return "redirect:/";
         return "comment deleted";
     }
 
-    @GetMapping("/showCommentUpdate/{id}")
+    @PutMapping("/showCommentUpdate/{id}")
     public String showFormForUpdate(@PathVariable(value = "id") int id, Model model) {
         Comment comment = commentService.getCommentById(id);
         model.addAttribute("comment", comment);
