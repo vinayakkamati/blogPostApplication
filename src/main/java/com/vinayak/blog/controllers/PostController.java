@@ -100,13 +100,13 @@ public class PostController {
         Timestamp time = Timestamp.from(Instant.now());
         Post post = new Post();
 
-        User user = userServiceImp.getCurrentUser();
+//        User user = userServiceImp.getCurrentUser();
 
         post.setTitle(title);
         post.setAuthor(author);
         post.setContent(content);
         post.setPublished(true);
-        post.setAuthorId(user.getId());
+//        post.setAuthorId(user.getId());
 
         String[] tagArray = tags.split(" ");
         List<Tag> tagList = new ArrayList<Tag>();
