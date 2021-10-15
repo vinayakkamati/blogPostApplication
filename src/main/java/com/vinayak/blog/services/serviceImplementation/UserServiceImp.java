@@ -26,7 +26,7 @@ public class UserServiceImp implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    private static final String USER_ROLE = "ADMIN";
+    private static final String USER_ROLE = "USER";
 
     @Override
     public User findUserByEmail(String email) {
