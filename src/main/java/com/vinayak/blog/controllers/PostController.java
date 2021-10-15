@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 public class PostController {
 
     @Autowired
@@ -92,11 +92,10 @@ public class PostController {
     }
 
     @PostMapping("/savepost")
-    public String savePost(@RequestParam("title") String title,
+    public Post savePost(@RequestParam("title") String title,
                            @RequestParam("content") String content,
                            @RequestParam("tags") String tags,
-                           @RequestParam("author") String author,
-                           @RequestParam("id") String id) {
+                           @RequestParam("author") String author) {
 
         Timestamp time = Timestamp.from(Instant.now());
         Post post = new Post();
@@ -109,11 +108,6 @@ public class PostController {
         post.setPublished(true);
         post.setAuthorId(user.getId());
 
-        tagArray(tags, post, time);
-        return "redirect:/";
-    }
-
-    private void tagArray(@RequestParam("tags") String tags, Post post, Timestamp time) {
         String[] tagArray = tags.split(" ");
         List<Tag> tagList = new ArrayList<Tag>();
         for (String tag : tagArray) {
@@ -131,6 +125,8 @@ public class PostController {
         post.setTags(tagList);
 
         postService.savePost(post);
+//        return "redirect:/";
+        return post;
     }
 
     @GetMapping("post{postId}")
@@ -162,7 +158,23 @@ public class PostController {
         post.setTitle(title);
         post.setUpdatedAt(time);
 
-        tagArray(tags, post, time);
+        String[] tagArray = tags.split(" ");
+        List<Tag> tagList = new ArrayList<Tag>();
+        for (String tag : tagArray) {
+            Tag tagObject = new Tag();
+            if (tagService.checkTagWithName(tag)) {
+                tagList.add(tagService.getTagByName(tag));
+            } else {
+                tagObject.setName(tag);
+                tagObject.setCreatedAt(time);
+                tagObject.setUpdatedAt(time);
+                tagList.add(tagObject);
+            }
+        }
+        post.setExcerpt(post.getContent().substring(0, 100));
+        post.setTags(tagList);
+
+        postService.savePost(post);
         return viewPost(postId, model);
     }
 
