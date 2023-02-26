@@ -1,4 +1,4 @@
-# Blog Post Application
+# :computer: Blog Post Application
 
   Blog application allows you to create, manage, and publish content on the internet in the form of a blog.
   
@@ -12,7 +12,7 @@
 6. Add comments to the blog post.
 7. Delete your posts and comments.
   
-## Demo
+## :movie_camera: Demo
 
 
 
@@ -20,7 +20,7 @@ https://user-images.githubusercontent.com/119689320/221432082-ebb08b34-dfbc-4102
 
 
 
-## Installation and Setup Instructions
+## 👨🏻‍💻 Installation and Setup Instructions
 
 Note : Make sure you have Java 8 installed into your system
 
@@ -36,7 +36,7 @@ Note : Make sure you have Java 8 installed into your system
 
 **Step 5:** Check the Application is running At http://localhost:8080/
 
-## Reflection
+## :books: Reflection
 
 This was a 2 week long project built during my training period at Mountblue Technolgies. Project goals included using technologies learned up until this point and familiarizing myself with documentation for new features.
 
