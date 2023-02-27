@@ -34,7 +34,10 @@ Note : Make sure you have Java 8 installed into your system
 
 **Step 4:** Right click on BlogApplication file > Run.
 
-**Step 5:** Check the Application is running At http://localhost:8080/
+**Step 5:** Check the Application is running At http://localhost:8080/ 
+
+## Contributors
+1. Vinayak Kamati
 
 ## :books: Reflection
 
